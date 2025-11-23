@@ -1,11 +1,12 @@
 Flask==2.3.3
-scikit-learn==1.2.2
+scikit-learn==1.1.3
 numpy==1.25.0
 pandas==2.0.3
 joblib==1.3.2
 matplotlib==3.8.0
 seaborn==0.13.1
 scipy==1.11.1
+cython>=0.29.35
 setuptools>=68.0.0
 wheel>=0.40.0
 gunicorn==20.1.0
