@@ -60,7 +60,7 @@ requests-oauthlib==2.0.0
 rich==14.1.0
 rsa==4.9.1
 s3transfer==0.13.1
-scikit-learn==1.7.2
+scikit-learn==1.6.1
 scipy==1.16.3
 shellingham==1.5.4
 six==1.17.0
