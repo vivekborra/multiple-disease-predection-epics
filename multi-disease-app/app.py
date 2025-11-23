@@ -138,5 +138,8 @@ def predict():
     except Exception as e:
         return render_template("result.html", disease="System Error", result=f"⚠ Unexpected error: {e}")
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # use Render's PORT if set
+    app.run(host="0.0.0.0", port=port, debug=False)
