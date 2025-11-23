@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Health Prediction System</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: -1;
+        }
+
+        nav {
+            background: rgba(25, 118, 210, 0.85);
+            padding: 15px;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .container {
+            width: 460px;
+            background: rgba(32, 40, 60, 0.9);
+            padding: 40px 35px 35px 35px;
+            margin: 80px auto 100px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #bbdefb;
+            text-shadow: 0 0 12px rgba(187, 222, 251, 0.7);
+            letter-spacing: 1.2px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #90caf9;
+            display: block;
+            margin-bottom: 8px;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            background: #1c2435;
+            color: #e0e0e0;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7);
+            transition: background 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            background: #2a3654;
+            box-shadow: 0 0 8px #1976d2;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #1e88e5;
+            border: none;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 25px rgba(30, 136, 229, 0.7);
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: #1565c0;
+            box-shadow: 0 7px 30px rgba(21, 101, 192, 0.85);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #7e7e7e;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121b2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #1976d2;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        🏥 AI Health Prediction System
+    </nav>
+
+    <div class="container">
+
+        <h2>Predict Your Health Condition</h2>
+
+        <form action="/predict" method="POST">
+
+            <label>Select Disease:</label>
+            <select name="disease" id="disease" onchange="updateForm()" required>
+                <option value="breast_cancer">Breast Cancer</option>
+                <option value="diabetes">Diabetes</option>
+                <option value="heart_disease">Heart Disease</option>
+                <option value="stroke">Stroke</option>
+            </select>
+
+            <div id="input-fields"></div>
+
+            <button type="submit">Predict Result</button>
+        </form>
+    </div>
+
+    <footer>© 2025 | AI-Powered Healthcare Prediction System</footer>
+
+    <script>
+        const fields = {
+
+            "breast_cancer": [
+                ["age", "18 - 100", "number"],
+                ["race", "White|Black|Other", "select"],
+                ["marital_status", "Married|Divorced|Single|Widowed|Separated", "select"],
+                ["t_stage", "T1|T2|T3|T4", "select"],
+                ["n_stage", "N1|N2|N3", "select"],
+                ["sixth_stage", "IIA|IIB|IIIA|IIIB|IIIC", "select"],
+                ["differentiate", "Well differentiated|Moderately differentiated|Poorly differentiated|Undifferentiated", "select"],
+                ["grade", "1|2|3|anaplastic", "select"],
+                ["a_stage", "Regional|Distant", "select"],
+                ["tumor_size", "1 - 140", "number"],
+                ["estrogen_status", "Positive|Negative", "select"],
+                ["progesterone_status", "Positive|Negative", "select"],
+                ["regional_node_examined", "1 - 61", "number"],
+                ["reginol_node_positive", "1 - 46", "number"],
+                ["survival_months", "1 - 107", "number"]
+            ],
+
+            "diabetes": [
+                ["pregnancies", "0 - 15"],
+                ["glucose", "50 - 200"],
+                ["bloodpressure", "40 - 120"],
+                ["skinthickness", "5 - 50"],
+                ["insulin", "0 - 850"],
+                ["bmi", "10 - 60"],
+                ["diabetespedigree", "0.1 - 3.0"],
+                ["age", "1 - 120"]
+            ],
+
+            "heart_disease": [
+                ["age", "18 - 100"],
+                ["gender", "0=Female,1=Male"],
+                ["chestpain", "0 | 1 | 2 | 3"],
+                ["restingBP", "80 - 200"],
+                ["serumcholestrol", "100 - 600"],
+                ["fastingbloodsugar", "0 | 1"],
+                ["restingrelectro", "0 | 1 | 2"],
+                ["maxheartrate", "60 - 220"],
+                ["exerciseangia", "0 | 1"],
+                ["oldpeak", "0 - 10"],
+                ["slope", "0 | 1 | 2"],
+                ["noofmajorvessels", "0 | 1 | 2 | 3"]
+            ],
+
+            "stroke": [
+                ["Chest Pain", "0=No,1=Yes"],
+                ["Shortness of Breath", "0=No,1=Yes"],
+                ["Irregular Heartbeat", "0=No,1=Yes"],
+                ["Fatigue & Weakness", "0=No,1=Yes"],
+                ["Dizziness", "0=No,1=Yes"],
+                ["Swelling (Edema)", "0=No,1=Yes"],
+                ["Pain in Neck/Jaw/Shoulder/Back", "0=No,1=Yes"],
+                ["Excessive Sweating", "0=No,1=Yes"],
+                ["Persistent Cough", "0=No,1=Yes"],
+                ["Nausea/Vomiting", "0=No,1=Yes"],
+                ["High Blood Pressure", "0=No,1=Yes"],
+                ["Chest Discomfort (Activity)", "0=No,1=Yes"],
+                ["Cold Hands/Feet", "0=No,1=Yes"],
+                ["Snoring/Sleep Apnea", "0=No,1=Yes"],
+                ["Anxiety/Feeling of Doom", "0=No,1=Yes"],
+                ["Age", "18 - 120"],
+                ["Stroke Risk (%)", "0 - 100"]
+            ]
+        };
+
+        function updateForm() {
+            const selection = document.getElementById("disease").value;
+            const labels = fields[selection];
+            let html = "";
+
+            labels.forEach(item => {
+                const [fieldName, fieldInfo, fieldType = "number"] = item;
+
+                const labelText = fieldName.replace(/_/g, " ").toUpperCase();
+
+                html += `<label for="${fieldName}">${labelText}:</label>`;
+
+                if (fieldType === "select") {
+                    const options = fieldInfo.split("|");
+                    html += `<select id="${fieldName}" name="${fieldName}" required>`;
+                    options.forEach(opt => {
+                        html += `<option value="${opt}">${opt}</option>`;
+                    });
+                    html += `</select>`;
+                } else {
+                    html += `<input type="number" step="any" id="${fieldName}" name="${fieldName}" placeholder="${fieldInfo}" required>`;
+                }
+            });
+
+            document.getElementById("input-fields").innerHTML = html;
+        }
+
+        updateForm(); // initial load
+    </script>
+
+</body>
+
+</html>

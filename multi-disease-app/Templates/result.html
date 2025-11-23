@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prediction Result</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: -1;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 2.4rem;
+            color: #bbdefb;
+            margin-bottom: 25px;
+            text-shadow: 0 0 12px rgba(187, 222, 251, 0.7);
+            letter-spacing: 1.1px;
+        }
+
+        p {
+            font-size: 1.6rem;
+            font-weight: 600;
+            background: rgba(28, 36, 53, 0.8);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            max-width: 460px;
+            margin: 0 auto 40px;
+            word-wrap: break-word;
+            color: #e0e0e0;
+        }
+
+        a.button-back {
+            display: inline-block;
+            text-decoration: none;
+            background: #1e88e5;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 14px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(30, 136, 229, 0.7);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+        }
+
+        a.button-back:hover {
+            background: #1565c0;
+            box-shadow: 0 7px 30px rgba(21, 101, 192, 0.85);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>{{ disease }} Prediction Result</h2>
+
+    <p><strong>{{ result }}</strong></p>
+
+    <a href="/" class="button-back">🔙 Try Again</a>
+
+</body>
+
+</html>
